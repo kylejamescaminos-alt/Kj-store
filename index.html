@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYLEJILIAN — Phone Cases</title>
+<style>
+:root{--bg:#101416;--panel:#1b2023;--panel2:#20262a;--text:#f4f4f4;--muted:#aeb3b6;--accent:#ff5a1f;--line:#353b3f}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{background:#1b2023;padding:28px 5% 24px;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:16px}.logo{width:68px;height:68px;border:3px solid var(--accent);border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:19px}.brand h1{margin:0;font-size:25px;letter-spacing:1.5px}.brand p{margin:5px 0 0;color:var(--accent);font-weight:800;letter-spacing:2px;font-size:12px}
+.account{font-weight:700;font-size:17px}.cart{margin-left:22px;background:var(--accent);color:#111;padding:9px 13px;border-radius:20px;font-weight:900}
+.search{margin-top:28px;display:flex;background:#242a2e;border:1px solid #41484d;border-radius:9px;padding:0 18px}.search span{font-size:25px;padding:15px 12px 15px 0;color:#aeb3b6}.search input{width:100%;background:transparent;border:0;outline:0;color:#fff;font-size:17px}
+nav{display:flex;gap:35px;overflow:auto;padding:0 5%;background:#111517;border-bottom:1px solid var(--line)}nav button{background:none;border:0;color:#aeb3b6;font-size:16px;font-weight:800;padding:20px 8px;white-space:nowrap}nav button.active{color:var(--accent);border-bottom:4px solid var(--accent)}
+main{max-width:1000px;margin:auto;padding:28px 5% 70px}.subnav{display:flex;gap:38px;color:#aeb3b6;font-weight:800;padding-bottom:22px;border-bottom:1px solid var(--line)}.subnav span:first-child{color:#fff}
+.section-title{margin:34px 0 20px;border-left:6px solid var(--accent);padding:7px 0 7px 15px;font-size:22px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid #3a4145;border-radius:12px;padding:22px;min-height:210px;position:relative;transition:.2s}.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.tag{color:#aeb3b6;font-size:13px;font-weight:800;letter-spacing:1px}.card h2{margin:9px 0 26px;font-size:23px}.price{color:var(--accent);font-size:20px;font-weight:900}.add{position:absolute;right:20px;bottom:20px;background:#252b2f;border:1px solid #444b50;color:#fff;border-radius:8px;padding:12px 20px;font-weight:800;cursor:pointer}.add:hover{background:var(--accent);color:#111}
+.cartbox{display:none;position:fixed;right:18px;bottom:18px;width:min(380px,calc(100% - 36px));background:#1b2023;border:1px solid #444;border-radius:14px;padding:20px;box-shadow:0 15px 50px #0009;z-index:10}.cartbox.show{display:block}.cartbox h3{margin-top:0}.cartitem{display:flex;justify-content:space-between;border-bottom:1px solid #383e42;padding:10px 0}.checkout{width:100%;padding:13px;border:0;border-radius:8px;background:var(--accent);font-weight:900;margin-top:15px;cursor:pointer}
+footer{text-align:center;color:#777;padding:25px;border-top:1px solid var(--line)}
+@media(max-width:700px){.account{font-size:0}.grid{grid-template-columns:1fr}.brand h1{font-size:20px}.logo{width:58px;height:58px}.card{min-height:190px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand"><div class="logo">KJ</div><div><h1>KYLEJILIAN</h1><p>QUALITY • STYLE • PROTECTION</p></div></div>
+    <div class="account">♙ &nbsp; Log in / Sign up <span class="cart" id="cartCount">0</span></div>
+  </div>
+  <div class="search"><span>⌕</span><input id="search" placeholder="Search items — e.g. magnetic case, matte case" oninput="filterProducts()"></div>
+</header>
+
+<nav>
+  <button class="active" onclick="setCategory('all',this)">PHONE CASES</button>
+  <button onclick="setCategory('magnetic',this)">MAGNETIC CASE</button>
+  <button onclick="setCategory('matte',this)">MATTE CASE</button>
+  <button onclick="setCategory('accessories',this)">ACCESSORIES</button>
+</nav>
+
+<main>
+  <div class="subnav"><span>Featured Cases</span><span>Best Sellers</span></div>
+  <h2 class="section-title">Phone Case Collection</h2>
+  <div class="grid" id="products">
+    <article class="card" data-cat="magnetic" data-name="Magnetic Case">
+      <div class="tag">MAGNETIC CASE</div><h2>Magnetic Case</h2>
+      <div class="price">₱499 – ₱799</div><button class="add" onclick="addToCart('Magnetic Case',599)">+ Add</button>
+    </article>
+    <article class="card" data-cat="matte" data-name="Matte Case">
+      <div class="tag">MATTE CASE</div><h2>Matte Case</h2>
+      <div class="price">₱399 – ₱699</div><button class="add" onclick="addToCart('Matte Case',499)">+ Add</button>
+    </article>
+    <article class="card" data-cat="magnetic" data-name="Magnetic Case — Premium">
+      <div class="tag">MAGNETIC CASE</div><h2>Magnetic Case — Premium</h2>
+      <div class="price">₱699 – ₱999</div><button class="add" onclick="addToCart('Magnetic Case — Premium',799)">+ Add</button>
+    </article>
+    <article class="card" data-cat="matte" data-name="Matte Case — Premium">
+      <div class="tag">MATTE CASE</div><h2>Matte Case — Premium</h2>
+      <div class="price">₱599 – ₱899</div><button class="add" onclick="addToCart('Matte Case — Premium',699)">+ Add</button>
+    </article>
+  </div>
+</main>
+
+<div class="cartbox" id="cartBox"><h3>Your Cart</h3><div id="cartItems"></div><strong id="total"></strong><button class="checkout" onclick="alert('Thank you for your order! This demo checkout can be connected to your payment or ordering system.')">Checkout</button></div>
+<footer>© 2026 KYLEJILIAN • Magnetic Case & Matte Case</footer>
+
+<script>
+let cart=[];
+function addToCart(name,price){cart.push({name,price});renderCart();document.getElementById('cartBox').classList.add('show')}
+function renderCart(){document.getElementById('cartCount').textContent=cart.length;document.getElementById('cartItems').innerHTML=cart.map((x,i)=>`<div class="cartitem"><span>${x.name}</span><span>₱${x.price.toLocaleString()}</span></div>`).join('');document.getElementById('total').textContent='Total: ₱'+cart.reduce((a,x)=>a+x.price,0).toLocaleString()}
+function setCategory(cat,btn){document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.card').forEach(c=>c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none')}
+function filterProducts(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?'block':'none')}
+</script>
+</body>
+</html>
